@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+    <header
+        android:fragment="com.example.usuario.masterslavepreferences.SettingsActivity$SettingsFragment"
+        android:title="@string/pref_gen"
+        android:summary="Preferencias Generales"
+        >
+
+        <!-- identifica nombre valor los setting que estan relacionados -->
+        <extra
+            android:name="settings"
+            android:value="generales"/>
+    </header>
+    <header
+        android:fragment="com.example.usuario.masterslavepreferences.SettingsActivity$SettingsFragment"
+        android:title="@string/pref_twitter"
+        android:summary="Datos twitter"
+
+        >
+        <!-- identifica nombre valor los setting que estan relacionados -->
+        <extra
+            android:name="settings"
+            android:value="twitter"/>
+    </header>
+</preference-headers>

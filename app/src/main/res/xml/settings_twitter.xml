@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- PREFERENCIAS GENERALES -->
+    <PreferenceCategory
+        android:key="pref_twitter"
+        android:title="@string/pref_twitter"
+        >
+        <!-- Uusario de twitter -->
+        <EditTextPreference
+            android:key="usuario_twitter"
+            android:title="@string/pref_usuario_titulo"
+            android:summary="@array/pref_numArticulos_resumen"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            />
+
+        <!-- Password de twitter -->
+        <EditTextPreference
+            android:key="cotnraseña_twitter"
+            android:title="@string/pref_contraseña_titulo"
+            android:summary="@string/pref_contraseña_resumen"
+            android:selectAllOnFocus="true"
+            android:inputType="textWebPassword"
+            android:singleLine="true"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
