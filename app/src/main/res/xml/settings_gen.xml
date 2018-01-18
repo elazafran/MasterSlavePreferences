@@ -14,10 +14,16 @@
             android:entryValues="@array/pref_numArticulos_valores"
             android:summary="@array/pref_numArticulos_resumen" />
 
-        <!-- nivel de volumen de los sonidos -->
-        <com.example.usuario.masterslavepreferences
+        <!-- nivel de volumen de los sonidos
+        /**
+
+        esta tendríamos que codificarla tendría su xml con su widget con todas sus caracteristas
+        **/
+
+        <com.example.usuario.masterslavepreferences.VolumePreference
             android:key="pref_vol"
             android:defaultValue="75"/>
+         -->
 
     </PreferenceCategory>
 </PreferenceScreen>

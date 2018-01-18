@@ -1,7 +1,11 @@
 package com.example.usuario.masterslavepreferences;
 
 
+import android.annotation.TargetApi;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
@@ -13,9 +17,7 @@ import java.util.List;
  * Created by usuario on 15/01/18.
  */
 
-public class SettingsActivity extends PreferenceActivity {
-
-
+public class SettingsActivity extends PreferenceActivity{
 
 
 
@@ -28,9 +30,11 @@ public class SettingsActivity extends PreferenceActivity {
     /**
      * este un metodo que se dispara el solo, cunado se le pasan las cabeceras
      * se le pasa una lista con las cabeceras y nosotros la vamos a utilizar
-     *
+     * @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+     * por que la cabeceras solo trabajan a partir de esto
      * @param target
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onBuildHeaders(List<Header> target) {
         super.onBuildHeaders(target);
@@ -45,6 +49,7 @@ public class SettingsActivity extends PreferenceActivity {
      *
      * @return de vuelve un boleano
      */
+
     @Override
     public boolean onIsMultiPane() {
 
@@ -67,22 +72,49 @@ public class SettingsActivity extends PreferenceActivity {
 
     }
 
-    public static class SettingsFragment extends PreferenceFragment {
 
+
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
         // se trae todos los metodos de mi fragment relacionados, attaca al xml
         // hemos tenidos que hacerlos declarativamente
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            String settings = getArguments().getString("settings");
 
-        String pref_settings = getArguments().getString("settings");
-        //if (pref_settings.equals("genreales")){
-        if("generales".equals(pref_settings)){
-            addPreferencesFromResource(R.xml.settings_header);
-
-        }else if("generales".equals(pref_settings)){
-            addPreferencesFromResource(R.xml.settings_twitter);
-
+            if (settings.equals("generales")){
+                addPreferencesFromResource(R.xml.settings_gen);
+            }else if (settings.equals("twitter")){
+                    addPreferencesFromResource(R.xml.settings_twitter);
+            }
         }
 
 
+        @Override
+        public void onResume() {
+            super.onResume();
+            //le pasamos la referencia de la propiaReferencia
+
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+            //le pasamos la referencia de la propiaReferencia
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
+
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            if (key.equals("numArticulos")){
+                Preference preference = findPreference(key);
+                preference.setSummary(sharedPreferences.getString(key,""));
+            }
+        }
     }
 
     /**
@@ -99,4 +131,6 @@ public class SettingsActivity extends PreferenceActivity {
         //como validad y lo comparamos lo uqe nos venga del metoso
         return SettingsFragment.class.getName().equals(fragmentName);
     }
+
+
 }
